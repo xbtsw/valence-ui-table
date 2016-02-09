@@ -6,14 +6,13 @@
     "autoprefix": "postcss -c postcss.config.json",
     "autoprefix:test": "postcss -c ./test/postcss.config.json",
     "clean": "rimraf *.css && rimraf ./test/*.css",
-    "build:sass:test": "node-sass --output-style expanded ./test/test.scss ./test/test.css",
+    "build:sass:test": "node-sass --importer ./node_modules/frau-sass-importer/ --output-style expanded ./test/test.scss ./test/test.css",
     "postbuild:sass:test": "npm run autoprefix:test",
-    "build:sass": "node-sass --output-style expanded table.css.scss table.css",
+    "build:sass": "node-sass --importer ./node_modules/frau-sass-importer/ --output-style expanded table.css.scss table.css",
     "postbuild:sass": "npm run autoprefix",
     "prebuild": "npm run clean && imgtoscss -p vui- -o table-icons.scss *.svg",
     "build": "npm run build:sass && npm run build:sass:test",
     "perceptual-diff": "percy snapshot test/",
-    "postinstall": "bower install",
     "pretest": "npm run build",
     "test": "csslint table.css"
   },
@@ -29,9 +28,14 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "dependencies": {
-    "bower": "^1.4.1"
+    "vui-colors": "^0.2.0",
+    "vui-typography": "xbtsw/valence-ui-typography#experiment-npm-sass-importer"
+  },
+  "peerDependencies": {
+    "frau-sass-importer": "^0.3.0"
   },
   "devDependencies": {
+    "frau-sass-importer": "^0.3.0",
     "autoprefixer": "^6.1.2",
     "cpy": "^3.4.1",
     "csslint": "^0.10.0",
